@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSync Solutions | Personal Trainers &amp; Fitness Coaches</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #111111;
+      --ink: #ffffff;
+      --muted: #aaaaaa;
+      --faint: #666666;
+      --line: #2a2a2a;
+      --gold: #c9a84c;
+      --gold-light: rgba(201,168,76,0.1);
+      --gold-border: rgba(201,168,76,0.25);
+      --offwhite: #f5f4f2;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 72px; }
+
+    /* ── HERO: full-bleed image with text overlay ── */
+    .hero {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 620px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: #0a0a0a;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      filter: grayscale(100%) contrast(1.1);
+      opacity: 0.55;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 50px 50px 52px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: flex-end;
+    }
+    .hero-text .brand {
+      font-size: 13px; font-weight: 800; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+    }
+    .hero-text h1 {
+      font-size: clamp(32px, 4.5vw, 62px);
+      line-height: 1.0; letter-spacing: -0.04em;
+      font-weight: 900; color: #ffffff; margin: 0 0 20px;
+    }
+    .hero-text h1 em { font-style: normal; color: var(--gold); }
+    .hero-text p {
+      font-size: 17px; line-height: 1.72;
+      color: rgba(255,255,255,0.72); margin: 0;
+      max-width: 54ch;
+    }
+    .hero-cta {
+      display: flex; flex-direction: column;
+      gap: 10px; min-width: 200px; align-items: stretch;
+    }
+    .btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 14px 20px; border-radius: 10px;
+      text-decoration: none; font-weight: 700; font-size: 14px;
+      white-space: nowrap; transition: opacity 0.15s, transform 0.12s;
+      background: #ffffff; color: #0a0a0a; border: none;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn.gold { background: var(--gold); color: #0a0a0a; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line); border-radius: 16px;
+      overflow: hidden; margin-top: 20px;
+    }
+    .stat {
+      background: var(--card); padding: 22px 24px;
+      text-align: center;
+    }
+    .stat-num { font-size: 32px; font-weight: 900; color: var(--gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Section ── */
+    .section { margin-top: 20px; }
+    .sh { margin-bottom: 18px; }
+    .sh .label { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .sh h2 { margin: 0; font-size: clamp(22px, 2.8vw, 30px); font-weight: 800; letter-spacing: -0.02em; color: #ffffff; line-height: 1.18; }
+    .sh p { margin: 6px 0 0; font-size: 15px; color: var(--muted); line-height: 1.65; }
+
+    /* ── Problem cards — horizontal list ── */
+    .problems { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .problem-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 18px; padding: 26px 22px;
+    }
+    .problem-num { font-size: 36px; font-weight: 900; color: var(--line); line-height: 1; margin-bottom: 12px; letter-spacing: -0.03em; }
+    .problem-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: #ffffff; line-height: 1.3; }
+    .problem-card p { margin: 0; font-size: 14px; line-height: 1.72; color: var(--muted); }
+
+    /* ── Photo + steps side-by-side ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .photo-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .photo-stack img { width: 100%; height: 220px; object-fit: cover; border-radius: 14px; display: block; filter: grayscale(100%) contrast(1.1); }
+    .photo-stack img.tall { height: 100%; min-height: 220px; border-radius: 14px; }
+
+    /* ── Experience guide ── */
+    .experience-guide { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 34px; }
+    .steps { display: grid; gap: 14px; margin: 20px 0 24px; }
+    .step { display: grid; grid-template-columns: 36px 1fr; gap: 16px; align-items: start; }
+    .step-num { width: 36px; height: 36px; border-radius: 10px; background: var(--gold); color: #0a0a0a; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-body h4 { margin: 0 0 6px; font-size: 15px; font-weight: 800; color: #ffffff; }
+    .step-body p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
+    .step-body a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .step-tag { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 700; color: var(--gold); background: var(--gold-light); padding: 3px 10px; border-radius: 6px; border: 1px solid var(--gold-border); }
+    .exp-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn-dark { background: #ffffff; color: #0a0a0a; border: none; }
+    .btn-dark:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── Packages ── */
+    .packages { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .pkg-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; }
+    .pkg-card.featured { background: var(--gold); border-color: var(--gold); }
+    .pkg-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; color: var(--muted); }
+    .pkg-card.featured .pkg-label { color: rgba(0,0,0,0.6); }
+    .pkg-price { font-size: 36px; font-weight: 900; line-height: 1; margin-bottom: 14px; letter-spacing: -0.02em; color: #ffffff; }
+    .pkg-card.featured .pkg-price { color: #0a0a0a; }
+    .pkg-price span { font-size: 14px; font-weight: 600; }
+    .pkg-features { font-size: 13px; line-height: 1.9; color: var(--muted); }
+    .pkg-card.featured .pkg-features { color: rgba(0,0,0,0.7); }
+
+    /* ── Footer ── */
+    .footer-banner {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 20px; padding: 36px 40px;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .footer-banner h3 { margin: 0 0 8px; font-size: clamp(18px, 2.5vw, 26px); font-weight: 800; color: #ffffff; letter-spacing: -0.02em; line-height: 1.2; }
+    .footer-banner p { margin: 0; font-size: 14px; line-height: 1.72; color: var(--muted); }
+    .footer-banner a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-cta { flex-direction: row; flex-wrap: wrap; }
+      .problems, .packages, .stats-bar { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .photo-stack { grid-template-columns: 1fr 1fr; }
+      .footer-banner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .wrap { padding: 16px 14px 56px; }
+      .hero { min-height: 500px; }
+      .hero-content { padding: 30px 24px 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- ══ HERO: full image overlay ══ -->
+    <section class="hero">
+      <div class="hero-bg">
+        <img src="assets/images/trainer/trainer-hero.jpg" alt="Personal trainer at work" />
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="brand">CSync Solutions</div>
+          <h1>Your clients are booking with whoever <em>answers first.</em></h1>
+          <p>Personal trainers and coaches lose new clients every day to slow replies and missed inquiries. See the fix in under two minutes &mdash; no pitch required.</p>
+        </div>
+        <div class="hero-cta">
+          <a class="btn" href="https://halosalondemo.com" target="_blank">Open Demo &mdash; Meet Tonya</a>
+          <a class="btn" href="tel:+19292955738">Call Brandy &mdash; 929-295-5738</a>
+          <a class="btn gold" href="sms:+19292955738">Text Brandy</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ STATS BAR ══ -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-num">78%</div>
+        <div class="stat-label">of prospects go with the first business that responds</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2 min</div>
+        <div class="stat-label">average response window before a lead goes cold</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">coverage with an AI front desk — no extra staff</div>
+      </div>
+    </div>
+
+    <!-- ══ WHY IT MATTERS ══ -->
+    <section class="section">
+      <div class="sh">
+        <div class="label">The problem</div>
+        <h2>Three things keeping you from growing your client base.</h2>
+      </div>
+      <div class="problems">
+        <div class="problem-card">
+          <div class="problem-num">01</div>
+          <h3>You&rsquo;re in a session &mdash; your phone isn&rsquo;t</h3>
+          <p>When you&rsquo;re training a client you can&rsquo;t answer texts. New prospects who reach out during that window move on before you call back.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">02</div>
+          <h3>Leads don&rsquo;t follow up twice</h3>
+          <p>Most people asking about training don&rsquo;t send a second message. If you don&rsquo;t respond fast, that client is gone &mdash; even if they liked you.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">03</div>
+          <h3>Looks like a side hustle, not a business</h3>
+          <p>Slow replies signal disorganization. New clients judge your professionalism before they ever step foot in a session with you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PHOTOS + EXPERIENCE GUIDE ══ -->
+    <section class="section two-col">
+      <div class="photo-stack">
+        <img src="assets/images/trainer/trainer-action1.jpg" alt="Trainer coaching client" />
+        <img src="assets/images/trainer/trainer-action2.jpg" alt="Trainer encouraging client" />
+        <img src="assets/images/trainer/trainer-action3.jpg" alt="Trainer with client battle ropes" style="grid-column: span 2; height:200px;" />
+      </div>
+      <div class="experience-guide">
+        <div class="sh" style="margin-bottom:4px;">
+          <div class="label">Try it yourself &mdash; right now</div>
+          <h2>Two live AI experiences.</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Meet Tonya &mdash; Halo Salon Demo</h4>
+              <p>Visit <a href="https://halosalondemo.com" target="_blank">halosalondemo.com</a>. Tonya is the AI front desk. Ask about services, hours, or booking &mdash; she handles it.</p>
+              <span class="step-tag">halosalondemo.com</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Talk to Brandy &mdash; CSync Line</h4>
+              <p>Call or text <a href="tel:+19292955738">929-295-5738</a> and talk to Brandy. This is the experience I build for your fitness business.</p>
+              <span class="step-tag">929-295-5738</span>
+            </div>
+          </div>
+        </div>
+        <div class="exp-cta">
+          <a class="btn btn-dark" href="https://halosalondemo.com" target="_blank">Open Demo</a>
+          <a class="btn btn-dark" href="tel:+19292955738">Call Brandy</a>
+          <a class="btn btn-dark" href="sms:+19292955738">Text Brandy</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PACKAGES ══ -->
+    <section class="section">
+      <div class="sh">
+        <div class="label">Introductory offers</div>
+        <h2>Try the experience. Then pick a starting point.</h2>
+        <p>Straightforward pricing. Built to start fast and grow with your roster.</p>
+      </div>
+      <div class="packages">
+        <div class="pkg-card">
+          <div class="pkg-label">Starter Intro</div>
+          <div class="pkg-price">$99<span style="color:var(--faint);">/mo</span></div>
+          <div class="pkg-features">
+            Missed-call text back<br/>
+            Basic lead capture<br/>
+            Web chat starter<br/>
+            Simple follow-up
+          </div>
+        </div>
+        <div class="pkg-card featured">
+          <div class="pkg-label">Front Desk Intro</div>
+          <div class="pkg-price">$199<span style="color:rgba(0,0,0,0.4);">/mo</span></div>
+          <div class="pkg-features">
+            AI phone assistant<br/>
+            SMS follow-up<br/>
+            FAQ + pricing handling<br/>
+            New client routing
+          </div>
+        </div>
+        <div class="pkg-card">
+          <div class="pkg-label" style="color:var(--gold);">Growth Setup</div>
+          <div class="pkg-price" style="color:var(--gold);">Custom</div>
+          <div class="pkg-features">
+            Voice + text automation<br/>
+            Booking funnel support<br/>
+            Advanced follow-up<br/>
+            Tailored to your brand
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FOOTER ══ -->
+    <section class="section">
+      <div class="footer-banner">
+        <div>
+          <h3>Ready to stop missing new clients?</h3>
+          <p>Try Tonya on the demo. Call or text Brandy on the CSync line. Then let&rsquo;s talk.</p>
+          <p style="margin-top:10px;">
+            Demo: <a href="https://halosalondemo.com" target="_blank">halosalondemo.com</a>
+            &nbsp;&middot;&nbsp;
+            CSync line: <a href="tel:+19292955738">929-295-5738</a>
+          </p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; min-width:180px;">
+          <a class="btn" href="https://halosalondemo.com" target="_blank">View Demo</a>
+          <a class="btn" href="tel:+19292955738">Call Brandy</a>
+          <a class="btn gold" href="sms:+19292955738">Text Brandy</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

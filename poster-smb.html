@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSync Solutions | Small Business AI Receptionist</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #0a0a0a;
+      --muted: #4a4a4a;
+      --faint: #888888;
+      --line: #e0e0e0;
+      --gold: #c9a84c;
+      --gold-light: #f7f0e0;
+      --surface: #f5f4f2;
+      --black: #0a0a0a;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--black);
+      border-bottom: 3px solid var(--gold);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .masthead-brand {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .masthead-brand span {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-top: 3px;
+    }
+    .masthead-tag {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #888888;
+    }
+    .masthead-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 18px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 800;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── EDITORIAL HERO ── */
+    .editorial {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .editorial-copy {
+      padding: 64px 56px 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+    }
+    .editorial-label {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .editorial-copy h1 {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin: 0 0 24px;
+      color: var(--ink);
+    }
+    .editorial-copy h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .editorial-copy p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0 0 32px;
+      max-width: 48ch;
+    }
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 280px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      background: var(--black);
+      color: #ffffff;
+      border: 1px solid var(--black);
+      transition: opacity 0.15s, transform 0.12s;
+    }
+    .btn:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+    }
+    .btn-gold-solid {
+      background: var(--gold);
+      color: var(--black);
+      border: 1px solid var(--gold);
+    }
+
+    /* ── EDITORIAL IMAGE PANEL ── */
+    .editorial-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .editorial-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) contrast(1.1);
+    }
+    .editorial-stat-badge {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      background: rgba(10,10,10,0.88);
+      border: 1px solid var(--gold);
+      border-radius: 14px;
+      padding: 18px 24px;
+      color: #fff;
+      backdrop-filter: blur(4px);
+    }
+    .editorial-stat-badge .stat-num {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .editorial-stat-badge .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      margin-top: 4px;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 3px solid var(--gold);
+    }
+    .stat-cell {
+      padding: 28px 24px;
+      text-align: center;
+      border-right: 1px solid #222222;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell .num {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .stat-cell .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-top: 6px;
+    }
+
+    /* ── WRAP ── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 32px; }
+    .section { margin-top: 0; }
+
+    /* ── SECTION HEADER ── */
+    .sh { margin-bottom: 24px; }
+    .sh .label { font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .sh h2 { margin: 0; font-size: clamp(24px, 2.8vw, 34px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+    .sh p { margin: 8px 0 0; font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 60ch; }
+
+    /* ── IMAGE FILMSTRIP ── */
+    .filmstrip {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 64px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+    .filmstrip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%) contrast(1.08);
+      aspect-ratio: auto;
+    }
+    .filmstrip .main-img { height: 340px; }
+    .filmstrip .side-img { height: 167px; }
+
+    /* ── 2x2 PROBLEM GRID ── */
+    .problems-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .problem-card::before {
+      content: attr(data-num);
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      font-size: 80px;
+      font-weight: 900;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .problem-card .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-light);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+    .problem-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .problem-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── TWO-COL SPLIT ── */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 64px;
+      align-items: start;
+    }
+    .split-img-col img {
+      width: 100%;
+      border-radius: 20px;
+      display: block;
+      filter: grayscale(100%) contrast(1.08);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    /* ── EXPERIENCE GUIDE ── */
+    .guide-card {
+      background: var(--black);
+      border-radius: 20px;
+      padding: 36px 32px;
+      color: #fff;
+    }
+    .guide-card .guide-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .guide-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 24px;
+      line-height: 1.2;
+    }
+    .guide-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .guide-step:last-child { margin-bottom: 0; }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 900;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .step-body p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: #888888;
+    }
+    .guide-va-note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: rgba(201,168,76,0.12);
+      border-left: 3px solid var(--gold);
+      border-radius: 6px;
+    }
+    .guide-va-note strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .guide-va-note p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #aaaaaa;
+    }
+
+    /* ── VALUE POINTS ── */
+    .value-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .value-list li {
+      padding: 18px 20px;
+      background: var(--surface);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .value-list li strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    /* ── PACKAGES ── */
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 64px;
+    }
+    .pkg-card {
+      border-radius: 20px;
+      padding: 30px 24px 28px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+    .pkg-card.featured {
+      background: var(--black);
+      color: #ffffff;
+      border-color: var(--black);
+    }
+    .pkg-card.featured .pkg-title { color: var(--gold); }
+    .pkg-card.featured .pkg-price { color: #ffffff; }
+    .pkg-card.featured .pkg-desc { color: #888888; }
+    .pkg-card.featured .pkg-feat { color: #cccccc; border-color: #222222; }
+    .pkg-tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .pkg-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0 0 6px;
+    }
+    .pkg-price {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin: 0 0 4px;
+      line-height: 1;
+    }
+    .pkg-price span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--faint);
+    }
+    .pkg-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 8px 0 20px;
+    }
+    .pkg-features {
+      list-style: none;
+      margin: 0 0 24px;
+      padding: 0;
+      flex: 1;
+    }
+    .pkg-feat {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      line-height: 1.5;
+    }
+    .pkg-feat:last-child { border-bottom: none; }
+    .pkg-feat::before {
+      content: "— ";
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ── FULL-WIDTH BANNER ── */
+    .banner {
+      background: var(--black);
+      padding: 60px 48px;
+      text-align: center;
+      border-top: 3px solid var(--gold);
+    }
+    .banner .b-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .banner h2 {
+      font-size: clamp(26px, 3.5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin: 0 0 14px;
+      line-height: 1.1;
+    }
+    .banner h2 em { font-style: normal; color: var(--gold); }
+    .banner p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #888888;
+      max-width: 56ch;
+      margin: 0 auto 32px;
+    }
+    .banner-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .banner .btn { background: var(--gold); color: var(--black); border-color: var(--gold); }
+    .banner .btn-light { background: transparent; color: #ffffff; border: 1.5px solid #444444; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #0a0a0a;
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #1a1a1a;
+    }
+    .footer-brand {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -0.01em;
+    }
+    .footer-brand span {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: #555555;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 6px;
+    }
+    .footer-links a {
+      padding: 9px 16px;
+      border-radius: 8px;
+      background: #0a0a0a;
+      color: #ffffff;
+      border: 1px solid #333333;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .footer-links a:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .masthead { padding: 0 20px; height: auto; flex-direction: column; gap: 12px; padding: 16px; }
+      .masthead-tag { display: none; }
+      .editorial { grid-template-columns: 1fr; }
+      .editorial-copy { padding: 40px 24px; border-right: none; }
+      .editorial-image { min-height: 280px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); }
+      .wrap { padding: 40px 20px; }
+      .problems-2x2 { grid-template-columns: 1fr; }
+      .split-section { grid-template-columns: 1fr; }
+      .packages { grid-template-columns: 1fr; }
+      .filmstrip { grid-template-columns: 1fr; }
+      .filmstrip .main-img, .filmstrip .side-img { height: 200px; }
+      .banner { padding: 40px 24px; }
+      .footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ MASTHEAD ══════════ -->
+  <header class="masthead">
+    <div class="masthead-brand">
+      CSync Solutions
+      <span>AI Receptionist for Local Business</span>
+    </div>
+    <div class="masthead-tag">Professional · Accountants · Med Spas · Real Estate · Consultants</div>
+    <a href="tel:9292955738" class="masthead-cta">Call Now: 929-295-5738</a>
+  </header>
+
+  <!-- ══════════ EDITORIAL HERO ══════════ -->
+  <section class="editorial">
+    <div class="editorial-copy">
+      <span class="editorial-label">AI Receptionist — Always On</span>
+      <h1>Clients don't leave voicemails.<br/><em>They call someone else.</em></h1>
+      <p>Every missed call from a new client is a lost appointment — and they're already on Google looking for your competitor. CSync Solutions gives your business a professional AI voice that answers instantly, books, and follows up 24/7.</p>
+      <div class="btn-stack">
+        <a href="https://www.halosalondemo.com" target="_blank" class="btn">View Live Demo (Tonya — AI Demo)</a>
+        <a href="tel:9292955738" class="btn btn-gold-solid">Call Brandy at CSync: 929-295-5738</a>
+        <a href="mailto:info@csyncsolutions.com" class="btn btn-outline">Get a Free Assessment</a>
+      </div>
+    </div>
+    <div class="editorial-image">
+      <img src="assets/images/smb/smb-hero.jpg" alt="Professional business owner" />
+      <div class="editorial-stat-badge">
+        <div class="stat-num">3×</div>
+        <div class="stat-label">More bookings captured<br/>after business hours</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS STRIP ══════════ -->
+  <div class="stats-strip">
+    <div class="stat-cell">
+      <div class="num">78%</div>
+      <div class="label">Of clients won't call back<br/>if no one answers</div>
+    </div>
+    <div class="stat-cell">
+      <div class="num">&lt; 2s</div>
+      <div class="label">Average AI response<br/>time on first ring</div>
+    </div>
+    <div class="stat-cell">
+      <div class="num">24/7</div>
+      <div class="label">Active coverage —<br/>nights, weekends, holidays</div>
+    </div>
+    <div class="stat-cell">
+      <div class="num">$0</div>
+      <div class="label">Cost per call handled<br/>by AI vs. live staff</div>
+    </div>
+  </div>
+
+  <!-- ══════════ IMAGE FILMSTRIP ══════════ -->
+  <div class="wrap" style="padding-top:56px; padding-bottom:0;">
+    <div class="filmstrip">
+      <img class="main-img" src="assets/images/smb/smb-portrait.jpg" alt="Business professional" />
+      <div style="display:grid; grid-template-rows:1fr 1fr; gap:6px;">
+        <img class="side-img" src="assets/images/smb/smb-laptop.jpg" alt="Consultant at work" />
+        <img class="side-img" src="assets/images/smb/smb-street.jpg" alt="Professional on the go" />
+      </div>
+      <div style="display:grid; grid-template-rows:1fr; gap:6px;">
+        <img class="main-img" src="assets/images/smb/smb-hero.jpg" alt="Business owner" style="height:340px;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PROBLEMS 2x2 ══════════ -->
+  <div class="wrap" style="padding-top:20px; padding-bottom:0;">
+    <div class="sh">
+      <div class="label">The Problem</div>
+      <h2>Good businesses lose clients to bad phone coverage</h2>
+      <p>Whether you're in a meeting, with a client, or closed for the weekend — your phone is your front door. Here's what's costing you.</p>
+    </div>
+    <div class="problems-2x2">
+      <div class="problem-card" data-num="01">
+        <span class="tag">Missed Calls</span>
+        <h3>Every unanswered call is a lost opportunity</h3>
+        <p>New prospects search, find your number, and call once. If no one answers, 78% won't try again — they move on to the next listing.</p>
+      </div>
+      <div class="problem-card" data-num="02">
+        <span class="tag">After Hours</span>
+        <h3>Most inquiries happen when you're unavailable</h3>
+        <p>Evenings and weekends are peak inquiry hours for service professionals. Your AI receptionist captures every lead, even at midnight.</p>
+      </div>
+      <div class="problem-card" data-num="03">
+        <span class="tag">First Impression</span>
+        <h3>Voicemail signals you're not a serious business</h3>
+        <p>High-value clients expect professionalism from first contact. An instant, knowledgeable voice answer sets you apart from competitors immediately.</p>
+      </div>
+      <div class="problem-card" data-num="04">
+        <span class="tag">Follow-Up</span>
+        <h3>Missed follow-up means lost revenue in your pipeline</h3>
+        <p>Our AI captures inquiries, books appointments, and sends follow-up confirmations automatically — your pipeline stays warm without any effort.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SPLIT: Photo + Experience Guide ══════════ -->
+  <div class="wrap" style="padding-top:16px; padding-bottom:0;">
+    <div class="split-section">
+      <div class="split-img-col">
+        <img src="assets/images/smb/smb-laptop.jpg" alt="Business professional with laptop" />
+        <ul class="value-list" style="margin-top:20px;">
+          <li>
+            <strong>Always Professional</strong>
+            Your AI receptionist answers in your brand voice — consistent, calm, and polished every single time.
+          </li>
+          <li>
+            <strong>Books While You Work</strong>
+            Appointments are scheduled in real-time without interrupting your billable hours or client sessions.
+          </li>
+          <li>
+            <strong>Handles FAQ on Autopilot</strong>
+            Pricing, hours, services, location — answered instantly so you stop fielding the same 5 questions daily.
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="guide-card">
+          <div class="guide-label">The Experience</div>
+          <h3>What your clients hear when they call</h3>
+          <div class="guide-step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Tonya answers — your AI Demo</strong>
+              <p>Call <a href="https://www.halosalondemo.com" style="color:var(--gold);">halosalondemo.com</a> and speak with Tonya to hear how your AI receptionist handles real client calls — booking, FAQ, intake, and routing.</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Brandy walks you through setup — CSync Line</strong>
+              <p>Call <strong style="color:#ffffff;">929-295-5738</strong> and speak with Brandy, CSync's company line AI. She'll answer your questions and connect you to our team to customize and deploy your system.</p>
+            </div>
+          </div>
+          <div class="guide-va-note">
+            <strong>Note on CSync AI Roles</strong>
+            <p>Tonya = demo AI showing the salon/business experience. Brandy = CSync company receptionist AI. Two separate systems — both live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PACKAGES ══════════ -->
+  <div class="wrap" style="padding-top:8px;">
+    <div class="sh">
+      <div class="label">Pricing</div>
+      <h2>Flexible plans for every business size</h2>
+      <p>All plans include setup, training on your services, and ongoing support from the CSync team.</p>
+    </div>
+    <div class="packages">
+      <div class="pkg-card">
+        <div class="pkg-tag">Starter</div>
+        <div class="pkg-title">Essential</div>
+        <div class="pkg-price">$297<span>/mo</span></div>
+        <div class="pkg-desc">For solo practitioners and small offices ready to stop missing leads.</div>
+        <ul class="pkg-features">
+          <li class="pkg-feat">AI answers up to 200 calls/mo</li>
+          <li class="pkg-feat">Business FAQ &amp; hours scripting</li>
+          <li class="pkg-feat">Appointment booking integration</li>
+          <li class="pkg-feat">Call summary emailed to you</li>
+          <li class="pkg-feat">Setup &amp; onboarding included</li>
+        </ul>
+        <a href="tel:9292955738" class="btn">Get Started</a>
+      </div>
+      <div class="pkg-card featured">
+        <div class="pkg-tag">Most Popular</div>
+        <div class="pkg-title">Professional</div>
+        <div class="pkg-price">$497<span>/mo</span></div>
+        <div class="pkg-desc">Best for growing practices that need 24/7 coverage and pipeline management.</div>
+        <ul class="pkg-features">
+          <li class="pkg-feat">Unlimited AI call handling</li>
+          <li class="pkg-feat">Lead capture &amp; intake forms</li>
+          <li class="pkg-feat">SMS/email follow-up sequences</li>
+          <li class="pkg-feat">CRM integration &amp; reporting</li>
+          <li class="pkg-feat">Dedicated onboarding manager</li>
+        </ul>
+        <a href="tel:9292955738" class="btn" style="background:var(--gold);color:var(--black);border-color:var(--gold);">Get Started</a>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-tag">Multi-Location</div>
+        <div class="pkg-title">Enterprise</div>
+        <div class="pkg-price">Custom</div>
+        <div class="pkg-desc">For agencies, franchises, and multi-location businesses needing centralized coverage.</div>
+        <ul class="pkg-features">
+          <li class="pkg-feat">Multi-location AI routing</li>
+          <li class="pkg-feat">White-label AI voice branding</li>
+          <li class="pkg-feat">Advanced analytics dashboard</li>
+          <li class="pkg-feat">API &amp; Zapier integrations</li>
+          <li class="pkg-feat">Dedicated account executive</li>
+        </ul>
+        <a href="tel:9292955738" class="btn">Talk to Sales</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ FULL-WIDTH CTA BANNER ══════════ -->
+  <div class="banner">
+    <div class="b-label">Ready to grow?</div>
+    <h2>Your next client is calling <em>right now</em>.<br/>Who's answering?</h2>
+    <p>Stop leaving revenue on the table. CSync Solutions deploys your AI receptionist in 48 hours — no tech knowledge required.</p>
+    <div class="banner-btns">
+      <a href="https://www.halosalondemo.com" target="_blank" class="btn">Hear the Demo (Tonya)</a>
+      <a href="tel:9292955738" class="btn btn-light">Call Brandy: 929-295-5738</a>
+    </div>
+  </div>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer">
+    <div class="footer-brand">
+      CSync Solutions
+      <span>AI Receptionists for Local Business</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.halosalondemo.com" target="_blank">View Demo</a>
+      <a href="tel:9292955738">929-295-5738</a>
+      <a href="mailto:info@csyncsolutions.com">Email Us</a>
+    </div>
+  </footer>
+
+</body>
+</html>
