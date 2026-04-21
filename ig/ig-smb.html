@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IG — General Business</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .post {
+      width: 1080px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      background: #f5f4f2;
+      flex-shrink: 0;
+    }
+    /* Top half: dark with image strip */
+    .top-half {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 52%;
+      overflow: hidden;
+    }
+    .top-half img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: grayscale(100%) contrast(1.1) brightness(0.55);
+    }
+    .top-half::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(245,244,242,1) 100%);
+    }
+    /* Bottom half: light */
+    .bottom-half {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 52%;
+      background: #f5f4f2;
+    }
+    /* Content layer */
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 52px 72px 60px;
+      z-index: 2;
+    }
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-size: 20px;
+      font-weight: 900;
+      color: #c9a84c;
+      letter-spacing: -0.01em;
+    }
+    .badge {
+      background: #0a0a0a;
+      color: #c9a84c;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 40px;
+    }
+    .center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 12px;
+    }
+    .kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: 76px;
+      font-weight: 900;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      color: #0a0a0a;
+      margin-bottom: 24px;
+    }
+    h1 em {
+      font-style: normal;
+      color: #c9a84c;
+    }
+    .sub {
+      font-size: 20px;
+      line-height: 1.55;
+      color: #555555;
+      max-width: 52ch;
+    }
+    .bottom-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .stats {
+      display: flex;
+      gap: 0;
+    }
+    .stat {
+      padding: 18px 28px 18px 0;
+      border-right: 1px solid #d0d0d0;
+      margin-right: 28px;
+    }
+    .stat:last-child { border-right: none; margin-right: 0; }
+    .stat .num {
+      font-size: 40px;
+      font-weight: 900;
+      color: #0a0a0a;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .stat .lbl {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999999;
+      margin-top: 4px;
+    }
+    .cta-block { text-align: right; }
+    .cta-url {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: #0a0a0a;
+      letter-spacing: 0.03em;
+      margin-bottom: 5px;
+    }
+    .cta-phone {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c9a84c;
+    }
+    .gold-bar {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 6px;
+      background: #c9a84c;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <div class="post">
+    <div class="top-half">
+      <img src="../assets/images/smb/smb-portrait.jpg" alt="" />
+    </div>
+    <div class="bottom-half"></div>
+    <div class="gold-bar"></div>
+    <div class="content">
+      <div class="top-row">
+        <div class="brand">CSync Solutions</div>
+        <div class="badge">AI Receptionist</div>
+      </div>
+      <div class="center">
+        <div class="kicker">Accountants · Med Spas · Consultants · Real Estate</div>
+        <h1>Clients don't<br/>leave voicemails.<br/>They call <em>someone else.</em></h1>
+        <div class="sub">CSync gives your business a 24/7 AI receptionist that answers, books, and follows up — automatically.</div>
+      </div>
+      <div class="bottom-row">
+        <div class="stats">
+          <div class="stat">
+            <div class="num">78%</div>
+            <div class="lbl">Won't call<br/>back</div>
+          </div>
+          <div class="stat">
+            <div class="num">48hr</div>
+            <div class="lbl">Setup &<br/>go live</div>
+          </div>
+          <div class="stat">
+            <div class="num">24/7</div>
+            <div class="lbl">Always<br/>on</div>
+          </div>
+        </div>
+        <div class="cta-block">
+          <span class="cta-url">halosalondemo.com</span>
+          <span class="cta-phone">929-295-5738</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
